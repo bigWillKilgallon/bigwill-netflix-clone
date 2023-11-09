@@ -2,13 +2,11 @@ import axios from "axios";
 import Input from "@/components/Input";
 import { useCallback, useState } from "react";
 import { signIn } from "next-auth/react";
-import { useRouter } from "next/router";
 
 import { FcGoogle } from "react-icons/fc";
 import { FaGithub } from "react-icons/fa";
 
 const Auth = () => {
-    const router = useRouter();
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
@@ -26,15 +24,12 @@ const Auth = () => {
             await signIn("credentials", {
                 email,
                 password,
-                redirect: false,
-                callbackUrl: "/",
+                callbackUrl: "/profiles",
             });
-
-            router.push("/");
         } catch (error) {
             console.error(error);
         }
-    }, [email, password, router]);
+    }, [email, password]);
 
     const register = useCallback(async () => {
         try {
@@ -102,7 +97,7 @@ const Auth = () => {
 
                         <div
                             onClick={() => {
-                                signIn("google", { callbackUrl: "/" });
+                                signIn("google", { callbackUrl: "/profiles" });
                             }}
                             className="flex flex-row items-center gap-4 mt-8 justify-center"
                         >
@@ -113,7 +108,7 @@ const Auth = () => {
                             <div
                                 onClick={() =>
                                     signIn("github", {
-                                        callbackUrl: "/",
+                                        callbackUrl: "/profiles",
                                     })
                                 }
                                 className="w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
