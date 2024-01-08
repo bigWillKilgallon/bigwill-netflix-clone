@@ -17,7 +17,7 @@ const FavouriteButton: React.FC<FavouriteButtonProps> = ({ movieId }) => {
         const list = currentUser?.favouriteIds || [];
 
         return list.includes(movieId);
-    }, [currentUser?.favouriteIds]);
+    }, [currentUser?.favouriteIds, movieId]);
 
     const toggleFavourites = useCallback(async () => {
         let response;
